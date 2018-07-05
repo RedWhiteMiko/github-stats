@@ -1,6 +1,6 @@
 # Github stats
 
-Github stats output to CSV files
+Github stats output to CSV text format to stdout
 
 ## Instruction
 - Requirements: `Docker or Golang (with libraries)`
