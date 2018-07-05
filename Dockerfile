@@ -7,6 +7,7 @@ RUN cd /go \
     && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o gh_scrap src/main.go
 
 FROM alpine
+ENV GITHUB_TOKEN ""
 RUN apk update && \
     apk add ca-certificates && \
     rm -rf /var/cache/apk/*

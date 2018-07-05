@@ -2,6 +2,7 @@ package repo
 
 import (
 	"context"
+	"os"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
@@ -15,16 +16,22 @@ type Github struct {
 
 // Init - Initialize
 func Init(owner string, repo string) *Github {
-	context := context.Background()
-	tokenSource := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: "29b3f7177ceb0c04bbd71a8d04bc8ff71382cadd"},
-	)
-	token := oauth2.NewClient(context, tokenSource)
-
 	git := new(Github)
 	git.repo = repo
 	git.owner = owner
-	git.client = github.NewClient(token)
+
+	// Use Token if defined
+	githubToken := os.Getenv("GITHUB_TOKEN")
+	if len(githubToken) == 0 {
+		git.client = github.NewClient(nil)
+	} else {
+		context := context.Background()
+		tokenSource := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: githubToken},
+		)
+		token := oauth2.NewClient(context, tokenSource)
+		git.client = github.NewClient(token)
+	}
 	return git
 }
 
