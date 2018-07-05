@@ -28,3 +28,4 @@ Github stats output to CSV text format to stdout
 ## Assumption
 - Latest commit is the latest commit in default branch, not latest commit from all branches
 - Repository name is `owner/repo_name`, otherwise it will output `Not valid Github Repository`
+- `GITHUB_TOKEN` is set to empty by default, if your API quota run out, please update the Token in `Dockerfile` to your token
